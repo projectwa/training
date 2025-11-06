@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>13. Beyond Basics — Tailwind CSS</title>
+  <!-- Demo-only: CDN for quick preview. In production, use your built CSS build output. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    pre { overflow: auto; padding: 1rem; border-radius: 0.75rem; background: rgba(2,6,23,.85); color: #e5e7eb; }
+    .prose pre code { background: transparent !important; padding: 0 !important; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <header class="sticky top-0 z-10 backdrop-blur border-b bg-white/70">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <h1 class="text-lg font-semibold">13. Beyond Basics — Tailwind CSS</h1>
+      <a href="#" onclick="document.documentElement.classList.toggle('dark'); return false;"
+         class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm">
+        Toggle Dark
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-4 md:p-6 lg:p-8 prose prose-slate">
+    <p><em>Take Tailwind from “comfortable” to “confident.” This lesson covers advanced patterns, performance tuning, maintainability, and real‑world tricks you’ll actually use.</em></p>
+
+    <h2>What you’ll learn</h2>
+    <ul>
+      <li>Advanced selectors &amp; variants (<code>&amp;</code>, <code>:has()</code>, <code>data-*</code>, <code>aria-*</code>)</li>
+      <li>Container queries</li>
+      <li>Design tokens with CSS variables + dynamic theming</li>
+      <li>Composing utilities with <code>@layer</code> and <code>@apply</code></li>
+      <li>Animation &amp; state patterns (groups, peers)</li>
+      <li>Small plugins &amp; safelisting</li>
+      <li>Performance for production</li>
+      <li>Accessibility at scale</li>
+    </ul>
+
+    <h2>1) Advanced Selectors &amp; Variants</h2>
+    <h3>Arbitrary selectors with <code>&amp;</code></h3>
+<pre><code>&lt;div class="group/card rounded-xl border p-4 [&amp;:has(button:focus)]:border-blue-500"&gt;
+  &lt;p class="mb-3"&gt;Focusable button inside:&lt;/p&gt;
+  &lt;button class="px-3 py-1 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-300"&gt;
+    Focus me
+  &lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+
+<pre><code>&lt;ul class="[&amp;&gt;li]:py-2 [&amp;&gt;li]:border-b last:[&amp;&gt;li]:border-none"&gt;
+  &lt;li&gt;One&lt;/li&gt;
+  &lt;li&gt;Two&lt;/li&gt;
+  &lt;li&gt;Three&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+    <h3><code>:has()</code> parent‑aware styling</h3>
+<pre><code>&lt;label class="block p-3 rounded border
+  [:has(input:invalid)]:border-red-500
+  [:has(input:invalid)]:bg-red-50"&gt;
+  &lt;span class="text-sm text-gray-600"&gt;Email&lt;/span&gt;
+  &lt;input type="email" required class="block w-full border-none p-2 focus:outline-none bg-transparent"&gt;
+&lt;/label&gt;
+</code></pre>
+
+    <h3>Data &amp; ARIA variants</h3>
+<pre><code>&lt;button
+  aria-expanded="false"
+  class="rounded px-3 py-2 border
+         aria-[expanded=true]:bg-blue-600
+         aria-[expanded=true]:text-white"&gt;
+  Toggle
+&lt;/button&gt;
+</code></pre>
+
+    <h2>2) Container Queries</h2>
+    <ol>
+      <li>Add container type to a parent.</li>
+      <li>Map container sizes in <code>tailwind.config.js</code> and install <code>@tailwindcss/container-queries</code>.</li>
+      <li>Use <code>cq:</code> like responsive prefixes.</li>
+    </ol>
+<pre><code>&lt;div class="container-type-inline-size grid grid-cols-1 cq:md:grid-cols-2 gap-4"&gt;
+  &lt;article class="p-4 rounded-xl border"&gt;A&lt;/article&gt;
+  &lt;article class="p-4 rounded-xl border"&gt;B&lt;/article&gt;
+&lt;/div&gt;
+</code></pre>
+
+    <h2>3) Design Tokens with CSS Variables</h2>
+<pre><code>@layer base {
+  :root {
+    --brand: 222 89% 56%;
+    --muted: 215 20% 96%;
+    --text: 220 16% 22%;
+  }
+  .dark {
+    --brand: 222 96% 60%;
+    --muted: 215 15% 12%;
+    --text: 220 15% 90%;
+  }
+}
+</code></pre>
+
+<pre><code>&lt;button class="px-4 py-2 rounded-xl
+  bg-[hsl(var(--brand))]
+  text-[hsl(var(--text))]
+  hover:bg-[hsl(var(--brand)/0.9)]
+  shadow"&gt;
+  Branded Action
+&lt;/button&gt;
+</code></pre>
+
+    <h2>4) Composing Utilities</h2>
+<pre><code>@layer components {
+  .btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-300; }
+  .btn-primary { @apply btn bg-blue-600 text-white hover:bg-blue-700; }
+  .btn-outline { @apply btn border border-gray-300 hover:bg-gray-50; }
+}
+</code></pre>
+
+    <h2>5) Animation &amp; State Patterns</h2>
+<pre><code>@layer utilities {
+  @keyframes in-fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in-fade-up { animation: in-fade-up 300ms ease-out both; }
+}
+</code></pre>
+
+<pre><code>&lt;div class="animate-in-fade-up"&gt;Hello!&lt;/div&gt;
+</code></pre>
+
+    <h2>6) Tiny Plugins</h2>
+<pre><code>// plugins/scrollbar.js
+module.exports = function({ addUtilities }) {
+  const utilities = {
+    ".scrollbar-none": {
+      "scrollbar-width": "none",
+      "&::-webkit-scrollbar": { display: "none" }
+    }
+  };
+  addUtilities(utilities);
+};
+</code></pre>
+
+    <h2>7) Performance</h2>
+<pre><code>{
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./public/tailwind.css --minify"
+  }
+}
+</code></pre>
+
+    <h2>8) Accessibility</h2>
+    <ul>
+      <li>Focus-visible rings for keyboard</li>
+      <li>Respect motion preferences</li>
+      <li>Contrast for tokens</li>
+      <li>Correct ARIA semantics for complex widgets</li>
+    </ul>
+
+    <h2>Practice</h2>
+    <ol>
+      <li>Extract <code>@apply</code> components</li>
+      <li>Container-aware 3-card layout</li>
+      <li>Fade-in animation + motion-reduce</li>
+    </ol>
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-4 py-8 text-sm text-slate-500">
+    Built for the "Learn Tailwind CSS" course — Lesson 13: Beyond Basics.
+  </footer>
+</body>
+</html>

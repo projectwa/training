@@ -1,0 +1,118 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>6. Responsive Design — Tailwind CSS Demo</title>
+  <!-- Tailwind CDN for quick demo -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Header / Navbar -->
+  <nav class="bg-gray-900 text-white sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a class="text-lg font-semibold tracking-tight">Brand</a>
+      <button class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800">
+        <span>Menu</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <div class="hidden md:flex items-center gap-6">
+        <a class="opacity-90 hover:opacity-100">Products</a>
+        <a class="opacity-90 hover:opacity-100">Pricing</a>
+        <a class="opacity-90 hover:opacity-100">Docs</a>
+        <a class="px-4 py-2 rounded-xl bg-indigo-500 hover:bg-indigo-600">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="container mx-auto px-4 py-12">
+    <div class="grid items-center grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+          Responsive by default.
+        </h1>
+        <p class="mt-4 text-base sm:text-lg md:text-xl opacity-80">
+          Tailwind’s mobile‑first utilities scale smoothly across breakpoints using simple prefixes.
+        </p>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <a class="px-5 py-3 rounded-xl bg-indigo-600 text-white text-center hover:bg-indigo-700">Primary CTA</a>
+          <a class="px-5 py-3 rounded-xl bg-white text-gray-900 border text-center hover:bg-gray-50 hidden md:inline-block">Secondary</a>
+        </div>
+      </div>
+      <div class="order-first md:order-last">
+        <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-indigo-100 to-indigo-200 p-1">
+          <div class="w-full h-full rounded-[1rem] bg-white grid place-items-center text-center p-6">
+            <p class="text-sm sm:text-base md:text-lg">
+              Resize the window to see <span class="font-semibold">text sizes</span>, <span class="font-semibold">layout</span>, and <span class="font-semibold">visibility</span> change.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Feature Cards Grid -->
+  <section class="container mx-auto px-4 py-10">
+    <h2 class="text-2xl sm:text-3xl font-semibold mb-6">Responsive Cards</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- card -->
+      <article class="rounded-2xl shadow bg-white p-5">
+        <h3 class="text-lg font-medium mb-2">Auto layout</h3>
+        <p class="text-gray-600">Stack on mobile, split into columns on larger screens.</p>
+      </article>
+      <article class="rounded-2xl shadow bg-white p-5">
+        <h3 class="text-lg font-medium mb-2">Scaling text</h3>
+        <p class="text-gray-600">Use `sm: md: lg:` to increase type sizes.</p>
+      </article>
+      <article class="rounded-2xl shadow bg-white p-5">
+        <h3 class="text-lg font-medium mb-2">Visibility</h3>
+        <p class="text-gray-600">Hide/show elements per breakpoint with `hidden`, `block`, etc.</p>
+      </article>
+      <article class="rounded-2xl shadow bg-white p-5">
+        <h3 class="text-lg font-medium mb-2">Spacing</h3>
+        <p class="text-gray-600">Grow padding/margins as screens get larger.</p>
+      </article>
+      <article class="rounded-2xl shadow bg-white p-5">
+        <h3 class="text-lg font-medium mb-2">Sizing</h3>
+        <p class="text-gray-600">Use `w-1/2`, `max-w-…` and responsive prefixes.</p>
+      </article>
+      <article class="rounded-2xl shadow bg-white p-5">
+        <h3 class="text-lg font-medium mb-2">Max variants</h3>
+        <p class="text-gray-600">`max-md:*` targets screens smaller than a breakpoint.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Split panel example -->
+  <section class="container mx-auto px-4 py-10">
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="flex-1 p-6 rounded-2xl bg-white shadow">
+        <h3 class="text-xl font-semibold mb-3">Column A</h3>
+        <p class="text-gray-600">Becomes a row layout at <code>md</code> and up.</p>
+      </div>
+      <div class="flex-1 p-6 rounded-2xl bg-white shadow">
+        <h3 class="text-xl font-semibold mb-3">Column B</h3>
+        <p class="text-gray-600">On mobile these stack vertically.</p>
+      </div>
+      <div class="flex-1 p-6 rounded-2xl bg-white shadow">
+        <h3 class="text-xl font-semibold mb-3">Column C</h3>
+        <p class="text-gray-600">Resize to see the switch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t py-10">
+    <div class="container mx-auto px-4">
+      <p class="text-sm text-gray-600">
+        Try adding classes like <code>md:text-2xl</code>, <code>lg:px-10</code>, or <code>max-md:hidden</code> and reload.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

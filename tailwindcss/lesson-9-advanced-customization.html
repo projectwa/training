@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson 9: Advanced Customization — Tailwind CSS</title>
+    <!-- Play CDN for live preview of config in this page (for demo/learning only) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind play CDN inline config for demo purposes
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                300: "#9eb8ff",
+                500: "#3c66ff",
+                600: "#284be0"
+              }
+            },
+            fontFamily: {
+              display: ['"Inter var"', "Inter", "ui-sans-serif", "system-ui"],
+            },
+            spacing: {
+              18: "4.5rem"
+            },
+            borderRadius: {
+              "2xl": "1rem",
+              "3xl": "1.5rem"
+            }
+          }
+        },
+        plugins: []
+      };
+    </script>
+    <style>
+      /* Token-based theming with CSS variables */
+      :root {
+        --color-bg: 255 255 255;
+        --color-fg: 17 24 39;
+        --color-accent: 60 102 255;
+      }
+      .dark {
+        --color-bg: 17 24 39;
+        --color-fg: 243 244 246;
+        --color-accent: 99 102 241;
+      }
+    </style>
+  </head>
+  <body class="bg-[rgb(var(--color-bg))] text-[rgb(var(--color-fg))] font-display antialiased">
+    <div class="max-w-5xl mx-auto p-6 md:p-10 space-y-8">
+      <header class="flex items-center justify-between gap-4">
+        <h1 class="text-3xl md:text-5xl font-semibold">Lesson 9: Advanced Customization</h1>
+        <button id="toggleTheme" class="px-4 py-2 rounded-2xl text-white bg-[rgb(var(--color-accent))]">
+          Toggle Theme
+        </button>
+      </header>
+
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-6">
+          <article class="prose prose-slate max-w-none">
+            <h2>Extend the Theme</h2>
+            <p>Use <code>theme.extend</code> to add colors, fonts, spacing, and more without replacing defaults.</p>
+<pre><code class="language-js">module.exports = {
+  theme: {
+    extend: {
+      colors: { brand: { 500: "#3c66ff", 600: "#284be0" } },
+      fontFamily: { display: ['"Inter var"', "Inter", "ui-sans-serif"] }
+    }
+  }
+}</code></pre>
+
+            <h2>@layer &amp; @apply</h2>
+            <p>Build reusable components and utilities in your CSS:</p>
+<pre><code class="language-css">@layer components {
+  .btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg 
+         bg-brand-500 text-white hover:bg-brand-600; }
+}</code></pre>
+          </article>
+
+          <article class="prose prose-slate max-w-none">
+            <h2>Arbitrary Values &amp; Variants</h2>
+            <p>Reach for one-off precision when needed:</p>
+<pre><code class="language-html">&lt;div class="w-[37rem] rounded-[22px] bg-brand-500/10"&gt;&lt;/div&gt;</code></pre>
+          </article>
+
+          <article class="prose prose-slate max-w-none">
+            <h2>Plugins</h2>
+            <p>Use community plugins or author your own with the plugin API.</p>
+<pre><code class="language-bash">npm i @tailwindcss/typography @tailwindcss/forms @tailwindcss/aspect-ratio</code></pre>
+          </article>
+        </div>
+
+        <aside class="space-y-4">
+          <div class="p-4 rounded-3xl border bg-white/60 backdrop-blur supports-[backdrop-filter]:bg-white/30 dark:bg-white/5">
+            <h3 class="font-semibold mb-2">Demo: Buttons</h3>
+            <div class="flex flex-wrap items-center gap-3">
+              <button class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-brand-500 hover:bg-brand-600 text-white shadow">
+                Primary
+              </button>
+              <button class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl border border-brand-500 text-brand-600 hover:bg-brand-500/10">
+                Outline
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm bg-brand-500/10 text-brand-600">
+                Pill
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-3xl border bg-white/60 backdrop-blur supports-[backdrop-filter]:bg-white/30 dark:bg-white/5">
+            <h3 class="font-semibold mb-2">Container Query</h3>
+            <div class="[container-type:inline-size] [container-name:card] p-4 border rounded-2xl">
+              <div class="@lg/card:grid @lg/card:grid-cols-2 gap-4">
+                <div class="h-16 rounded-lg bg-brand-500/10"></div>
+                <div class="h-16 rounded-lg bg-brand-500/10"></div>
+              </div>
+              <p class="text-sm mt-2 opacity-70">Resize this box to see the layout change at the container breakpoint.</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="prose prose-slate max-w-none">
+        <h2>Build-Time Controls</h2>
+        <ul>
+          <li><strong>Safelist:</strong> keep classes from purging via <code>safelist</code>.</li>
+          <li><strong>Prefix:</strong> avoid collisions using <code>prefix: "tw-"</code>.</li>
+          <li><strong>Important:</strong> set <code>important: true</code> or scope via a selector.</li>
+          <li><strong>Core Plugins:</strong> disable features you don't need.</li>
+        </ul>
+      </section>
+
+      <footer class="pt-8 border-t text-sm opacity-70">
+        <p>Tip: For production, configure <code>content</code> globs precisely and prefer tokens over arbitrary values for consistency.</p>
+      </footer>
+    </div>
+
+    <script>
+      const btn = document.getElementById("toggleTheme");
+      btn.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+      });
+    </script>
+  </body>
+</html>

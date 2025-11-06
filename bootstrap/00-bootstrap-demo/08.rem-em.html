@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>rem vs em – Interactive Demo</title>
+  <style>
+    :root { font-size: 16px; }
+
+    /* Utility */
+    .stack > * + * { margin-top: 1rem; }
+    .row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 1rem; /* rem: stable spacing */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .muted { color: #555; }
+
+    /* rem section */
+    .rem-demo h1 { font-size: 2rem; }
+    .rem-demo p  { font-size: 1rem; }
+    .rem-box {
+      padding: 1rem;             /* fixed to root */
+      margin: 1rem 0;
+      border: 2px dashed #aaa;
+      border-radius: 8px;
+    }
+
+    /* em section */
+    .em-demo { font-size: 1rem; }
+    .em-parent {
+      font-size: 1.25em; /* grows relative to current context */
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.875rem;     /* set text size explicitly */
+      padding: 0.5em 0.75em;   /* scales with badge text size */
+      border-radius: 999em;    /* pill; follows text size */
+      background: #eef5ff;
+      border: 1px solid #bcd3ff;
+    }
+    .info {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.875rem;
+      background: #f7f7f7;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 0.75rem;
+      overflow: auto;
+    }
+
+    .controls button {
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+    }
+    .controls button:active { transform: translateY(1px); }
+  </style>
+</head>
+<body>
+  <main class="stack" style="padding: 1.5rem; max-width: 960px; margin: 0 auto;">
+    <header class="stack">
+      <h1>rem vs em – Interactive Demo</h1>
+      <p class="muted">Use the controls to change the <strong>root</strong> font-size and observe how <code>rem</code> vs <code>em</code> behave.</p>
+      <div class="controls row">
+        <button data-root="14">Root 14px</button>
+        <button data-root="16">Root 16px</button>
+        <button data-root="18">Root 18px</button>
+        <button data-root="20">Root 20px</button>
+        <span class="muted" id="rootLabel" style="align-self:center;">Current root: 16px</span>
+      </div>
+    </header>
+
+    <section class="card rem-demo stack">
+      <h2>Section A: <code>rem</code>-based spacing & type</h2>
+      <p>Below, paddings and font sizes are defined in <code>rem</code>. They remain consistent regardless of nesting.</p>
+      <div class="rem-box">
+        <p>This box uses <strong>padding: 1rem</strong> and a <strong>2rem</strong> heading size.</p>
+        <div class="info" id="remInfo"></div>
+      </div>
+    </section>
+
+    <section class="card em-demo stack">
+      <h2>Section B: <code>em</code>-based internals (compounding)</h2>
+      <p>The parent sets <code>font-size: 1.25em</code>. The badge padding uses <code>em</code>, so it scales with the badge's own text size (which can be influenced by ancestors).</p>
+      <div class="em-parent stack">
+        <p>Parent is <strong>1.25em</strong> of current context.</p>
+        <div class="row">
+          <span class="badge">Badge</span>
+          <span class="badge" style="font-size: 1em;">Badge 1em</span>
+          <span class="badge" style="font-size: 1.125em;">Badge 1.125em</span>
+        </div>
+        <div class="info" id="emInfo"></div>
+      </div>
+    </section>
+
+    <section class="card stack">
+      <h2>Computed values</h2>
+      <p>These values update as you change the root font-size.</p>
+      <div class="info" id="computedDump"></div>
+    </section>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const rootLabel = document.getElementById('rootLabel');
+    const remInfo = document.getElementById('remInfo');
+    const emInfo = document.getElementById('emInfo');
+    const computedDump = document.getElementById('computedDump');
+
+    function px(n) { return Math.round(n) + 'px'; }
+
+    function updateLabels() {
+      const rootSize = parseFloat(getComputedStyle(root).fontSize);
+      rootLabel.textContent = 'Current root: ' + px(rootSize);
+      
+      // rem demo
+      const remBox = document.querySelector('.rem-box');
+      const h1 = document.querySelector('.rem-demo h1');
+      remInfo.textContent = [
+        '1rem = ' + px(rootSize),
+        'rem-box padding = ' + getComputedStyle(remBox).padding,
+        'h1 font-size = ' + getComputedStyle(h1).fontSize
+      ].join('\\n');
+
+      // em demo
+      const emParent = document.querySelector('.em-parent');
+      const badges = document.querySelectorAll('.badge');
+      const parentFont = getComputedStyle(emParent).fontSize;
+      const badgeSizes = Array.from(badges).map((b, i) => 'badge['+i+'] font-size = ' + getComputedStyle(b).fontSize + '; padding = ' + getComputedStyle(b).padding);
+      emInfo.textContent = ['parent font-size = ' + parentFont].concat(badgeSizes).join('\\n');
+
+      // dump some computed values
+      const dump = {
+        ':root font-size (1rem)': getComputedStyle(root).fontSize,
+        '.card padding (rem)': getComputedStyle(document.querySelector('.card')).padding,
+        '.em-parent font-size': parentFont
+      };
+      computedDump.textContent = JSON.stringify(dump, null, 2);
+    }
+
+    document.querySelectorAll('.controls button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const value = btn.getAttribute('data-root');
+        root.style.fontSize = value + 'px';
+        updateLabels();
+      });
+    });
+
+    // initial
+    updateLabels();
+  </script>
+</body>
+</html>

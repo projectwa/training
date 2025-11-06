@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>10. Integration & Tooling — Tailwind CSS</title>
+  <!-- Play CDN just to style this document -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    pre { white-space: pre-wrap; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <main class="mx-auto max-w-4xl p-6 sm:p-10">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">10. Integration &amp; Tooling (Tailwind CSS)</h1>
+      <p class="mt-2 text-sm text-gray-600">Last updated: 2025-10-18 16:02 IST</p>
+    </header>
+
+    <section class="prose max-w-none">
+      <p>This chapter shows how to integrate Tailwind CSS into different toolchains and supercharge your workflow with plugins, linters, IDE helpers, testing, and CI/CD. It’s practical and copy‑paste friendly.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">1) Quick Start Paths</h2>
+      <h3 class="mt-4 text-xl font-semibold">A) Play CDN (fast prototypes)</h3>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="min-h-screen grid place-items-center bg-gray-50"&gt;
+  &lt;button class="rounded-lg bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-300"&gt;
+    Hello Tailwind
+  &lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p><strong>Pros:</strong> zero setup. <strong>Cons:</strong> no tree‑shaking, limited config.</p>
+
+      <h3 class="mt-6 text-xl font-semibold">B) CLI + PostCSS (recommended)</h3>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>npm i -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p</code></pre>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>/* src/input.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;</code></pre>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>// tailwind.config.js
+export default {{
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,vue,svelte}"],
+  theme: {{ extend: {{}} }},
+  plugins: [],
+}};</code></pre>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>// package.json
+{{
+  "scripts": {{
+    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./public/tailwind.css --watch",
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./public/tailwind.css"
+  }}
+}}</code></pre>
+      <p>Then include <code>&lt;link href="./public/tailwind.css" rel="stylesheet"&gt;</code> in your HTML.</p>
+
+      <h3 class="mt-6 text-xl font-semibold">C) Vite (React/Vue/Svelte/Vanilla)</h3>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm i -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p</code></pre>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">2) Framework Recipes</h2>
+      <h3 class="mt-4 text-xl font-semibold">Next.js (App Router)</h3>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>import "./globals.css";
+export default function RootLayout({{ children }}) {{
+  return &lt;html lang="en"&gt;&lt;body className="bg-white text-gray-900"&gt;{{children}}&lt;/body&gt;&lt;/html&gt;;
+}}</code></pre>
+
+      <h3 class="mt-6 text-xl font-semibold">Vue (Vite)</h3>
+      <p>Import <code>src/style.css</code> with the <code>@tailwind</code> directives in <code>main.ts</code>. Ensure <code>content</code> globs include Vue files and <code>index.html</code>.</p>
+
+      <h3 class="mt-6 text-xl font-semibold">SvelteKit</h3>
+      <p>Add <code>@tailwind</code> to <code>src/app.css</code>, import in <code>+layout.svelte</code>, and include Svelte file globs.</p>
+
+      <h3 class="mt-6 text-xl font-semibold">Laravel (Vite)</h3>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>php artisan breeze:install # optional
+npm i -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p</code></pre>
+
+      <h3 class="mt-6 text-xl font-semibold">Rails</h3>
+      <p>With esbuild or importmap; include ERB/HAML/SLIM templates in <code>content</code> globs.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">3) Official Plugins</h2>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>npm i -D @tailwindcss/typography @tailwindcss/forms @tailwindcss/aspect-ratio @tailwindcss/container-queries</code></pre>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>plugins: [
+  require("@tailwindcss/typography"),
+  require("@tailwindcss/forms"),
+  require("@tailwindcss/aspect-ratio"),
+  require("@tailwindcss/container-queries"),
+]</code></pre>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">4) IDE &amp; DX Boosters</h2>
+      <ul class="list-disc pl-6">
+        <li>Tailwind CSS IntelliSense (VS Code)</li>
+        <li>Prettier + <code>prettier-plugin-tailwindcss</code> for class sorting</li>
+        <li>ESLint + <code>eslint-plugin-tailwindcss</code></li>
+      </ul>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">5) Storybook Integration</h2>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>npx storybook@latest init</code></pre>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>import "../src/index.css"; // .storybook/preview.js</code></pre>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">6) Testing Workflows</h2>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>await expect(page.getByRole("button", {{ name: "Submit" }})).toHaveCSS("border-radius", "8px");</code></pre>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">7) Performance &amp; Production</h2>
+      <ul class="list-disc pl-6">
+        <li>Accurate <code>content</code> globs for tree‑shaking</li>
+        <li><code>safelist</code> dynamic classes from CMS/user input</li>
+        <li>Use <code>darkMode: "class"</code> for cache‑friendly theming</li>
+        <li>Enable compression and long‑term caching in production</li>
+      </ul>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">8) CI/CD Tips</h2>
+      <ul class="list-disc pl-6">
+        <li>Cache npm and bundler caches</li>
+        <li>Use <code>npm ci</code> for reproducible installs</li>
+        <li>Run format/lint checks and build</li>
+      </ul>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">9) Debugging Cheats</h2>
+      <pre class="p-4 bg-white rounded-xl shadow"><code>/* dev-only.css */
+*:not(path):not(svg) {{ outline: 1px dashed rgba(0,0,0,.1); outline-offset: 2px; }}</code></pre>
+      <p>Try focus utilities like <code>focus:ring-2 focus:ring-blue-300</code> to verify focus states.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-semibold">10) Mini Demo</h2>
+      <button class="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white shadow hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-300">
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7.778 7.778a1 1 0 0 1-1.414 0L3.293 11.263a1 1 0 1 1 1.414-1.414l3.101 3.101 7.071-7.071a1 1 0 0 1 1.414 0z"/></svg>
+        Integrated!
+      </button>
+    </section>
+  </main>
+</body>
+</html>

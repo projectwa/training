@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>11. Accessibility & Best Practices – Tailwind CSS</title>
+  <!-- Tailwind via CDN for demo (swap for your compiled CSS in production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Make focus outlines visible for skip link demo */
+    .skip-link:focus { position:absolute; left:1rem; top:1rem; padding:.5rem .75rem; background:#000; color:#fff; border-radius:.5rem; }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
+  <a href="#main" class="skip-link sr-only">Skip to main content</a>
+
+  <header class="bg-white/70 backdrop-blur sticky top-0 z-50 shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <nav aria-label="Primary">
+        <ul class="flex items-center gap-6 text-sm">
+          <li><a class="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded" href="#">Docs</a></li>
+          <li><a class="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded" href="#">Guides</a></li>
+          <li><a class="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded" href="#">API</a></li>
+        </ul>
+      </nav>
+      <form role="search" class="hidden sm:block">
+        <label for="site-search" class="sr-only">Search</label>
+        <input id="site-search" type="search" placeholder="Search" class="rounded-md border px-3 py-2 w-56 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" />
+      </form>
+    </div>
+  </header>
+
+  <main id="main" class="container mx-auto px-4 py-10 grid lg:grid-cols-3 gap-8">
+    <article class="lg:col-span-2 space-y-8">
+      <section class="prose max-w-none">
+        <h1>Accessibility & Best Practices</h1>
+        <p>Design accessibly from the start. Tailwind utilities help you compose clear focus styles, high-contrast color schemes, and responsive layouts that respect motion preferences.</p>
+      </section>
+
+      <section aria-labelledby="focus-states" class="bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 id="focus-states" class="text-xl font-semibold">1) Focus states</h2>
+        <button type="button"
+          class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white shadow
+                 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
+          aria-busy="false">
+          <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm8-4a1 1 0 00-1 1v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7a1 1 0 00-1-1z"/></svg>
+          Primary action
+        </button>
+        <p class="text-sm text-gray-600">Tab to this button to see the focus-visible ring. Don’t remove focus outlines without replacement.</p>
+      </section>
+
+      <section aria-labelledby="disclosure" class="bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 id="disclosure" class="text-xl font-semibold">2) Disclosure with ARIA</h2>
+        <div class="border rounded-lg divide-y">
+          <button type="button"
+            class="w-full text-left px-4 py-3 flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            aria-expanded="false" aria-controls="faq-1" onclick="toggleDisclosure(this)">
+            <span class="font-medium">What is Tailwind?</span>
+            <svg class="h-5 w-5 transition-transform" data-chevron viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 10.17l3.71-2.94a.75.75 0 11.94 1.16l-4.24 3.36a.75.75 0 01-.94 0L5.21 8.39a.75.75 0 01.02-1.18z"/></svg>
+          </button>
+          <div id="faq-1" class="hidden px-4 py-3 text-sm text-gray-700">
+            Utility-first CSS framework for rapidly building modern UIs.
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">We toggle <code>aria-expanded</code> and rotate the chevron; the panel shows/hides and is announced correctly.</p>
+      </section>
+
+      <section aria-labelledby="forms" class="bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 id="forms" class="text-xl font-semibold">3) Forms & errors</h2>
+        <label for="email" class="block text-sm font-medium">Email</label>
+        <input id="email" name="email" type="email"
+          class="mt-1 block w-full rounded-md border px-3 py-2
+                 focus-visible:ring-2 focus-visible:ring-blue-500" aria-describedby="email-hint email-error" aria-invalid="false">
+        <p id="email-hint" class="mt-1 text-xs text-gray-500">We’ll never share your email.</p>
+        <p id="email-error" class="mt-1 hidden text-sm text-red-600" role="alert">Please enter a valid email address.</p>
+        <div class="flex gap-2">
+          <button type="button" class="mt-2 rounded bg-gray-800 text-white px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" onclick="invalidate()">Trigger error</button>
+          <button type="button" class="mt-2 rounded bg-green-600 text-white px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500" onclick="clearError()">Clear error</button>
+        </div>
+      </section>
+
+      <section aria-labelledby="motion" class="bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 id="motion" class="text-xl font-semibold">4) Respect reduced motion</h2>
+        <div class="inline-block rounded-lg bg-white p-6 shadow transition-transform hover:scale-105 motion-reduce:transition-none">
+          Hover me (motion-reduce disables zoom)
+        </div>
+      </section>
+    </article>
+
+    <aside class="space-y-6">
+      <div class="bg-white rounded-2xl shadow p-6">
+        <h3 class="text-lg font-semibold mb-2">Checklist</h3>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700">
+          <li>Tab through all interactive elements</li>
+          <li>Run Axe/Lighthouse</li>
+          <li>Zoom to 200–400% and check reflow</li>
+          <li>Verify contrast in light &amp; dark</li>
+          <li>Test with reduced motion</li>
+        </ul>
+      </div>
+      <div class="bg-white rounded-2xl shadow p-6">
+        <h3 class="text-lg font-semibold mb-2">Resources</h3>
+        <ul class="list-disc pl-5 text-sm">
+          <li><span class="underline">WCAG 2.2 Quick Reference</span></li>
+          <li><span class="underline">WAI-ARIA Authoring Practices</span></li>
+          <li><span class="underline">Axe DevTools / Lighthouse</span></li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="border-t">
+    <div class="container mx-auto px-4 py-10 text-sm text-gray-600">
+      © 2025 Accessibility Demo. Built with Tailwind utilities.
+    </div>
+  </footer>
+
+  <script>
+    function toggleDisclosure(btn) {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      const chevron = btn.querySelector('[data-chevron]');
+      chevron.style.transform = !expanded ? 'rotate(180deg)' : 'rotate(0deg)';
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      panel.classList.toggle('hidden', expanded);
+    }
+    function invalidate() {
+      const input = document.getElementById('email');
+      input.setAttribute('aria-invalid', 'true');
+      document.getElementById('email-error').classList.remove('hidden');
+      input.classList.add('border-red-500', 'ring-red-500');
+    }
+    function clearError() {
+      const input = document.getElementById('email');
+      input.setAttribute('aria-invalid', 'false');
+      document.getElementById('email-error').classList.add('hidden');
+      input.classList.remove('border-red-500', 'ring-red-500');
+    }
+  </script>
+</body>
+</html>

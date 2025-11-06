@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tailwind Core Concepts — Live Demo</title>
+    <!-- Tailwind CDN for quick demos (not for production) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Minimal customization for the CDN build
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: { brand: { 600: '#5B21B6', 700: '#4C1D95' } },
+            fontFamily: { display: ['Inter', 'system-ui', 'sans-serif'] },
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Just to show a custom font in action; safe fallbacks only */
+      @font-face { font-family: Inter; src: local('Inter'), local('System'); }
+    </style>
+  </head>
+  <body class="h-full bg-gray-50 text-gray-900">
+    <!-- Page wrapper that we can toggle dark mode on -->
+    <div id="app" class="min-h-screen transition-colors dark:bg-gray-900 dark:text-gray-100">
+      <!-- Header / Nav -->
+      <header class="border-b bg-white/80 backdrop-blur dark:bg-gray-900/80 sticky top-0 z-10">
+        <div class="max-w-6xl mx-auto px-4">
+          <nav class="flex items-center justify-between py-3">
+            <div class="flex items-center gap-3">
+              <div class="h-9 w-9 rounded-xl bg-brand-600"></div>
+              <span class="font-display text-xl">Core Concepts</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="darkToggle"
+                class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                Toggle Dark
+              </button>
+              <a href="#components"
+                 class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 transition">
+                Jump to Components
+              </a>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main id="main" class="max-w-6xl mx-auto px-4 pb-16">
+        <!-- Hero -->
+        <section class="py-10">
+          <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
+            Utility‑first, responsive, accessible UI — fast.
+          </h1>
+          <p class="mt-3 text-lg text-gray-600 dark:text-gray-300 max-w-prose">
+            This page demonstrates Tailwind’s core concepts with interactive, resize‑aware examples.
+            Use the dark toggle, hover/focus the controls, and resize your browser to see variants in action.
+          </p>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+              <h3 class="text-lg font-semibold mb-2">Responsive</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                Resize the window: this card’s border changes at breakpoints.
+              </p>
+              <div class="mt-3 h-10 border border-transparent sm:border-emerald-400 md:border-yellow-400 lg:border-blue-400 rounded"></div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+              <h3 class="text-lg font-semibold mb-2">States</h3>
+              <button
+                class="px-4 py-2 rounded-lg bg-indigo-600 text-white transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                Hover & Focus me
+              </button>
+              <p class="mt-2 text-xs text-gray-500">Hover/focus variants</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+              <h3 class="text-lg font-semibold mb-2">Transforms</h3>
+              <button
+                class="px-4 py-2 rounded-lg bg-pink-600 text-white transition transform hover:-translate-y-0.5 hover:scale-[1.02]">
+                Subtle lift
+              </button>
+              <p class="mt-2 text-xs text-gray-500">transition + transform</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Layout examples -->
+        <section id="components" class="mt-10 space-y-10">
+          <!-- Flexbox -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+            <h2 class="text-xl font-semibold mb-4">Flexbox layout</h2>
+            <div class="flex items-center justify-between gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
+              <span class="text-sm">Left</span>
+              <span class="text-sm">Center</span>
+              <span class="ml-auto text-sm">Right</span>
+            </div>
+          </div>
+
+          <!-- Grid -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+            <h2 class="text-xl font-semibold mb-4">Responsive grid</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="p-4 bg-white dark:bg-gray-900 rounded shadow-inner">Card 1</div>
+              <div class="p-4 bg-white dark:bg-gray-900 rounded shadow-inner">Card 2</div>
+              <div class="p-4 bg-white dark:bg-gray-900 rounded shadow-inner">Card 3</div>
+            </div>
+          </div>
+
+          <!-- Typography & spacing -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+            <h2 class="text-xl font-semibold mb-4">Typography & spacing</h2>
+            <p class="max-w-prose text-gray-700 dark:text-gray-300 text-lg leading-7">
+              Tailwind provides well‑tuned scales for spacing, font sizes, and line heights. Adjust them with
+              simple utilities like <code>text-lg</code>, <code>leading-7</code>, and <code>max-w-prose</code>.
+            </p>
+          </div>
+
+          <!-- Forms & focus -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+            <h2 class="text-xl font-semibold mb-4">Form focus & accessibility</h2>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <label class="block">
+                <span class="text-sm">Your email</span>
+                <input type="email" placeholder="you@example.com"
+                  class="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              </label>
+              <label class="block">
+                <span class="text-sm">Your role</span>
+                <select
+                  class="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                  <option>Developer</option>
+                  <option>Designer</option>
+                  <option>PM</option>
+                </select>
+              </label>
+            </div>
+            <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 mt-4 inline-block">
+              Skip to content
+            </a>
+          </div>
+
+          <!-- Arbitrary values -->
+          <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow">
+            <h2 class="text-xl font-semibold mb-4">Arbitrary values</h2>
+            <div class="h-[72px] w-[22rem] rounded-lg bg-[rebeccapurple]"></div>
+            <p class="mt-2 text-xs text-gray-500">Custom height/width/color without editing the config.</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="border-t py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+        Built with Tailwind CDN for demo. For production, use the CLI & purge.
+      </footer>
+    </div>
+
+    <script>
+      // Simple dark mode toggle
+      const app = document.getElementById('app');
+      const btn = document.getElementById('darkToggle');
+      btn.addEventListener('click', () => app.classList.toggle('dark'));
+    </script>
+  </body>
+</html>

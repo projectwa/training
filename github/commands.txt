@@ -1,0 +1,97 @@
+LOG IN TO Github Repository from VS Code
+========================================
+gh auth login
+
+CONNECT Project with Github repository form VS Code
+===============================================
+git init
+git remote add origin https://github.com/projectwa/veolmedtech.git
+git remote -v
+
+CHECK Which Github account VS Code is connected
+======================================
+git config --get user.name
+git config --get user.email
+
+
+STAGE AND COMMIT INDIVIDUAL FILE
+=================================
+git add G:\job-iwt\ezycrd-tool\writable
+git commit -m "Uploading writable"
+git push origin main
+
+STAGE AND COMMIT ALL changes
+===========================
+git add .                # stages all changes
+git commit -m "Upload files to github"
+git push origin main             # pushes to GitHub
+
+RESTORE FILE FROM PREVIOUS CHANGES
+=================================
+git log -- g:\job-iwt\udyogwardhini\udyogcp250524\application\views\include\datatable_footer_script.php
+git show c498652e813ce114852c204a6ea868266d4e63ce:udyogcp250524/application/views/include/datatable_footer_script.php
+git diff c498652e813ce114852c204a6ea868266d4e63ce -- udyogcp250524/application/views/include/datatable_footer_script.php
+
+git checkout 25ec077f61b98f699d59b425756b39262be18e6 -- udyogcp250524/application/views/include/datatable_footer_script.php
+=====================================
+
+REMOVE ALL COMMITS and START FRESH (dangerous, will delete history)
+=================================
+git reset --hard HEAD
+
+IGNORE FILES AND FOLDERS FROM UPLOADING TO github from local directory
+=====================================================================
+set file or folder path in .gtignore file
+If the file or folder was previously tracked by Git then first remove it from the tracking using
+git rm -r --cached file.ext or directory/path/
+Below are some of the examples set in .gtignore file
+# --------------------------
+# CI3 Multi-App Excludes
+# --------------------------
+
+# Core CI3 framework
+**/system/
+
+# CI3 runtime
+**/application/cache/
+**/application/logs/
+
+# User uploads
+**/uploads/
+**/temp/
+/udyogcp250524/upload/
+
+# Backup & temp files
+*.bak
+*.log
+*.tmp
+*.swp
+*.zip
+*.tar
+*.tar.gz
+
+# Git
+.git/
+.gitignore
+
+# GitHub Action state
+**/.ftp-deploy-sync-state.json
+
+# ftp-deploy.yml file
+**/.github/workflows/ftp-deploy.yml
+
+# IDE/editor settings
+**/.vscode/
+**/.idea/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+#Files to be ignored in root directory
+.htaccess
+work.txt
+test.php
+
+git rm -r --cached writable/logs
+git rm -r --cached images/Real_Estate.zip

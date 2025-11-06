@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>5. Borders, Effects, and Backgrounds — Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800">
+  <header class="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <h1 class="text-xl font-bold">5. Borders, Effects, and Backgrounds</h1>
+      <a href="#gallery" class="text-sm px-3 py-1 rounded-lg border hover:bg-slate-100">Skip to Gallery</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-12">
+    <!-- Borders -->
+    <section id="borders">
+      <h2 class="text-2xl font-semibold mb-4">A. Borders</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-4 border-2 rounded-lg">
+          <h3 class="font-semibold mb-2">Width & Sides</h3>
+          <div class="space-y-2">
+            <div class="p-2 border-2 rounded">All sides</div>
+            <div class="p-2 border-t-4 rounded">Top only</div>
+            <div class="p-2 border-x-4 rounded">Left & Right</div>
+          </div>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <h3 class="font-semibold mb-2">Color & Style</h3>
+          <div class="space-y-2">
+            <div class="p-2 border-2 border-emerald-500 rounded">Emerald</div>
+            <div class="p-2 border-2 border-red-500/50 rounded">Red 50%</div>
+            <div class="p-2 border-2 border-dashed border-indigo-500 rounded">Dashed</div>
+          </div>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <h3 class="font-semibold mb-2">Radius & Focus Ring</h3>
+          <div class="flex items-center gap-4">
+            <div class="h-12 w-12 bg-slate-200 rounded"></div>
+            <div class="h-12 w-12 bg-slate-200 rounded-full"></div>
+          </div>
+          <input class="mt-3 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" placeholder="Focus me">
+        </div>
+      </div>
+
+      <div class="mt-6 p-4 border rounded-lg">
+        <h3 class="font-semibold mb-2">Divide Utilities</h3>
+        <div class="flex divide-x divide-gray-300 rounded overflow-hidden">
+          <div class="p-2 bg-white">A</div>
+          <div class="p-2 bg-white">B</div>
+          <div class="p-2 bg-white">C</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Effects -->
+    <section id="effects">
+      <h2 class="text-2xl font-semibold mb-4">B. Effects</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl shadow-lg bg-white">
+          <h3 class="font-semibold mb-2">Shadows</h3>
+          <p class="text-sm text-slate-600">Standard outer shadow.</p>
+        </div>
+        <div class="p-6 rounded-2xl shadow-inner bg-white">
+          <h3 class="font-semibold mb-2">Inner Shadow</h3>
+          <p class="text-sm text-slate-600">Inset shadow for sunken panels.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white">
+          <h3 class="font-semibold mb-2">Opacity & Filters</h3>
+          <img class="rounded-lg opacity-75 hover:opacity-100 transition" src="https://images.unsplash.com/photo-1520975922284-732b9aa2c28d?q=80&w=600&auto=format&fit=crop" alt="Sample">
+          <p class="mt-2 text-xs text-slate-500">Hover to reveal full opacity.</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mt-6">
+        <div class="p-6 rounded-2xl bg-white">
+          <h3 class="font-semibold mb-3">Backdrop Blur (Frosted Glass)</h3>
+          <div class="h-32 rounded-xl overflow-hidden relative">
+            <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="bg">
+            <div class="absolute inset-4 backdrop-blur-md bg-white/60 rounded-xl p-4">
+              Soft frosted panel
+            </div>
+          </div>
+        </div>
+        <div class="p-6 rounded-2xl bg-white">
+          <h3 class="font-semibold mb-3">Mix Blend</h3>
+          <div class="h-32 rounded-xl overflow-hidden relative bg-yellow-300">
+            <img class="absolute inset-0 h-full w-full object-cover mix-blend-multiply" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="bg">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Backgrounds -->
+    <section id="backgrounds">
+      <h2 class="text-2xl font-semibold mb-4">C. Backgrounds</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-100 border">
+          <h3 class="font-semibold mb-2">Solid & Opacity</h3>
+          <div class="bg-blue-500/10 p-3 rounded">Blue 10%</div>
+        </div>
+        <div class="p-6 rounded-2xl border bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 text-white">
+          <h3 class="font-semibold mb-2">Gradient</h3>
+          <p>from → via → to</p>
+        </div>
+        <div class="p-0 rounded-2xl overflow-hidden border">
+          <div class="h-32 bg-[url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center"></div>
+          <div class="p-4">Cover & center</div>
+        </div>
+      </div>
+
+      <div class="mt-6 p-0 rounded-2xl overflow-hidden border">
+        <div class="h-40 bg-gradient-to-r from-fuchsia-600 to-rose-500 bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center bg-blend-multiply"></div>
+        <div class="p-4">Gradient + image with <code>bg-blend-multiply</code></div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+      <h2 class="text-2xl font-semibold mb-4">D. Mini Card Gallery</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="p-6 border-2 border-dashed border-indigo-400 rounded-2xl bg-white">
+          <h3 class="font-semibold text-indigo-700 mb-2">Dashed Border</h3>
+          <p class="text-slate-600">Experiment with width, color, and styles.</p>
+        </article>
+        <article class="p-6 rounded-2xl shadow-lg bg-white">
+          <h3 class="font-semibold mb-2">Shadows & Rings</h3>
+          <input class="w-full mt-2 rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2" placeholder="Focus me">
+        </article>
+        <article class="p-0 rounded-2xl overflow-hidden bg-white">
+          <div class="h-32 bg-gradient-to-r from-fuchsia-600 to-rose-500 bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center bg-blend-multiply"></div>
+          <div class="p-6">
+            <h3 class="font-semibold text-fuchsia-700 mb-2">Gradient Overlay</h3>
+            <p class="text-slate-600">Use <code>bg-blend-*</code> to tint hero images.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Practice -->
+    <section id="practice" class="pb-16">
+      <h2 class="text-2xl font-semibold mb-4">E. Practice — Badge</h2>
+      <span class="inline-flex items-center gap-2 rounded-full border border-emerald-400 bg-emerald-50 text-emerald-700 px-3 py-1 shadow-sm">
+        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+        Online
+      </span>
+    </section>
+  </main>
+
+  <footer class="border-t bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-500">
+      © 2025 Learn Tailwind CSS — Borders, Effects, and Backgrounds
+    </div>
+  </footer>
+</body>
+</html>

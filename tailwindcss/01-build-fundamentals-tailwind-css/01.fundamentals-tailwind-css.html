@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tailwind CSS Fundamentals – Demo</title>
+  <!-- <script src="./public/tailwind.js"></script> -->
+  <link href="./public/tailwind.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+  <!-- Page Header -->
+  <header class="bg-white border-b sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <h1 class="text-xl md:text-2xl font-bold">Tailwind CSS Fundamentals – Demo</h1>
+      <a href="#" class="text-sm text-blue-600 hover:underline">Docs</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-12">
+    <!-- Intro -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-2">How to use this demo</h2>
+      <p class="text-gray-600">
+        This page showcases Tailwind's core ideas with simple, workable examples. Each block includes a short explanation
+        and the HTML snippet you can copy. Tailwind is included via the
+        <code class="bg-gray-100 px-1 rounded">cdn.tailwindcss.com</code> script tag.
+      </p>
+    </section>
+
+    <!-- Utility-first basics -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">1) Utility-first basics</h2>
+      <p class="text-gray-600 mb-4">Compose small classes directly on elements—no separate CSS file required.</p>
+
+      <div class="flex flex-col md:flex-row gap-6">
+        <div class="flex-1">
+          <div class="bg-gray-100 p-6 rounded-lg shadow-inner">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Welcome!</h3>
+            <p class="text-gray-600">Tailwind makes styling easy and fast.</p>
+          </div>
+        </div>
+        <pre class="flex-1 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;div class="bg-gray-100 p-6 rounded-lg shadow-inner"&gt;
+  &lt;h3 class="text-2xl font-bold text-gray-800 mb-2"&gt;Welcome!&lt;/h3&gt;
+  &lt;p class="text-gray-600"&gt;Tailwind makes styling easy and fast.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- Responsive -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">2) Responsive design</h2>
+      <p class="text-gray-600 mb-4">
+        Tailwind is mobile-first. Unprefixed classes apply to all sizes, and breakpoint-prefixed classes (like
+        <code>sm:</code>, <code>md:</code>, <code>lg:</code>) override styles at that width and above.
+      </p>
+
+      <div class="rounded-lg p-4 text-white font-medium text-center
+                  bg-green-500 sm:bg-blue-500 md:bg-yellow-500 lg:bg-pink-500">
+        Resize the window to see this background color change at breakpoints.
+      </div>
+
+      <pre class="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;div class="p-4 text-white text-center
+  bg-green-500 sm:bg-blue-500 md:bg-yellow-500 lg:bg-pink-500"&gt;...&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- States -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">3) States: hover &amp; focus</h2>
+      <p class="text-gray-600 mb-4">
+        Use state variants to style interactions like hover and focus. Accessible focus rings are easy to add.
+      </p>
+
+      <button class="bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300
+                     text-white font-semibold px-6 py-3 rounded transition-colors">
+        Hover or focus me
+      </button>
+
+      <pre class="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;button class="bg-blue-600 hover:bg-blue-700
+  focus:ring-2 focus:ring-blue-300 text-white font-semibold px-6 py-3 rounded"&gt;...&lt;/button&gt;</code></pre>
+    </section>
+
+    <!-- Card component -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">4) Composing a card component</h2>
+      <p class="text-gray-600 mb-4">Combine utilities for spacing, color, border, shadow, and typography.</p>
+
+      <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+        <img class="rounded-t-lg" src="https://via.placeholder.com/640x360" alt="Sample Image" />
+        <div class="p-5">
+          <h5 class="text-2xl font-bold tracking-tight text-gray-900">Tailwind CSS Card</h5>
+          <p class="mt-2 mb-3 text-gray-700">A simple card built using only Tailwind utilities.</p>
+          <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+            Read more
+          </a>
+        </div>
+      </div>
+
+      <pre class="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition-shadow"&gt;
+  &lt;img class="rounded-t-lg" src="..." alt="..." /&gt;
+  &lt;div class="p-5"&gt;
+    &lt;h5 class="text-2xl font-bold tracking-tight text-gray-900"&gt;Tailwind CSS Card&lt;/h5&gt;
+    &lt;p class="mt-2 mb-3 text-gray-700"&gt;A simple card built using only Tailwind utilities.&lt;/p&gt;
+    &lt;a class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"&gt;Read more&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- Transitions & transforms -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">5) Transitions &amp; transforms</h2>
+      <p class="text-gray-600 mb-4">Add delightful micro-interactions without custom CSS.</p>
+      <button class="px-4 py-2 bg-purple-600 text-white rounded transition-transform duration-300 hover:scale-105">
+        Subtle hover scale
+      </button>
+
+      <pre class="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;button class="px-4 py-2 bg-purple-600 text-white rounded
+  transition-transform duration-300 hover:scale-105"&gt;...&lt;/button&gt;</code></pre>
+    </section>
+
+    <!-- Layout: flex & grid -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">6) Layout: Flex &amp; Grid</h2>
+      <p class="text-gray-600 mb-4">Use layout utilities to arrange content responsively.</p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-3">
+          <h3 class="font-semibold">Flexbox</h3>
+          <div class="flex items-center justify-between gap-4 bg-gray-100 p-4 rounded">
+            <span class="bg-white px-3 py-1 rounded shadow">A</span>
+            <span class="bg-white px-3 py-1 rounded shadow">B</span>
+            <span class="bg-white px-3 py-1 rounded shadow">C</span>
+          </div>
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;div class="flex items-center justify-between gap-4"&gt;
+  &lt;span&gt;A&lt;/span&gt; &lt;span&gt;B&lt;/span&gt; &lt;span&gt;C&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="font-semibold">Grid</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-gray-100 p-4 rounded">1</div>
+            <div class="bg-gray-100 p-4 rounded">2</div>
+            <div class="bg-gray-100 p-4 rounded">3</div>
+          </div>
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"&gt;...&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navbar example -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">7) Simple responsive navbar</h2>
+      <p class="text-gray-600 mb-4">On small screens, show a menu button; on larger screens, show inline links.</p>
+
+      <nav class="bg-gray-800 rounded-lg">
+        <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
+          <h1 class="text-white text-xl font-bold">MySite</h1>
+          <ul class="hidden md:flex space-x-6 text-gray-300">
+            <li><a href="#" class="hover:text-white">Home</a></li>
+            <li><a href="#" class="hover:text-white">About</a></li>
+            <li><a href="#" class="hover:text-white">Contact</a></li>
+          </ul>
+          <button class="md:hidden text-white">☰</button>
+        </div>
+      </nav>
+
+      <pre class="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;nav class="bg-gray-800 p-4"&gt;
+  &lt;div class="container mx-auto flex justify-between items-center"&gt;...&lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+    </section>
+
+    <!-- Customization section -->
+    <section class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">8) Customization</h2>
+      <p class="text-gray-600 mb-4">
+        With an NPM setup, extend your design tokens in <code>tailwind.config.js</code>. This block simulates a "brand" color.
+      </p>
+
+      <div class="bg-blue-900 text-white p-4 rounded">Custom brand color (example)</div>
+
+      <pre class="mt-4 bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: { brand: "#1e40af" }
+    }
+  }
+};</code></pre>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-sm text-gray-500 py-8">
+      Built with Tailwind CSS via CDN for demonstration purposes.
+    </footer>
+  </main>
+</body>
+</html>
