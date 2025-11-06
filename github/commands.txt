@@ -1,11 +1,15 @@
-LOG IN TO Github Repository from VS Code
+CREATE GITHUB REPOSITORY
+=========================
+Log into https://github.com/ account and create an empty repository
+
+LOG IN TO Github Repository from Cursor/ VS Code
 ========================================
 gh auth login
 
 CONNECT Project with Github repository form VS Code
 ===============================================
 git init
-git remote add origin https://github.com/projectwa/veolmedtech.git
+git remote add origin https://github.com/projectwa/training.git
 git remote -v
 
 CHECK Which Github account VS Code is connected
@@ -25,6 +29,15 @@ STAGE AND COMMIT ALL changes
 git add .                # stages all changes
 git commit -m "Upload files to github"
 git push origin main             # pushes to GitHub
+
+If your branch is master but you want main:
+==============================
+git branch -M main
+git push -u origin main
+
+f you want to keep current branch name (whatever it is) and just push it:
+=============================
+git push -u origin HEAD
 
 RESTORE FILE FROM PREVIOUS CHANGES
 =================================
